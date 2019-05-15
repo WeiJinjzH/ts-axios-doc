@@ -201,3 +201,30 @@ let c1 = getCunter()
 c1(10)
 c1.interval = 5.5
 c1.reset()
+
+
+
+
+/* 接口继承累 */
+// 当接口继承一个类的时候，接口会继承类的成员，但是不会实现 接口还会继承一个类的只读和私有类型 但是这个接口的类型只能被这个类或者其子类去实现
+class Control {
+    private state: any
+}
+interface SelectableControl extends Control {
+    select()
+}
+class Button extends Control implements SelectableControl {
+    select() {
+
+    }
+}
+class TextBox extends Control {
+    select() {
+
+    }
+}
+class ImageC implements SelectableControl {
+    select() { // 此时只写select方法会报错 因为SelectableControl接口在继承Control类的时候会继承它的私有成员 但是ImageC不是Control的继承类，所以它没办法实现Control的私有成员，所以只有像Button这样的子类才能实现SelectableControl接口
+
+    }
+}
