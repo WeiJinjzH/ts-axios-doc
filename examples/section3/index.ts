@@ -157,3 +157,22 @@ class AnalogClock implements ClockInterface1 { // 类有两种接口类型
 }
 let digital = createClock(DigitalClock, 12, 1) // 由于第一个参数是ClockConstrutor的类型，因此它会检测我们的DigitalClock满不满足
 let analog = createClock(AnalogClock, 24, 17)
+
+
+
+
+
+/* 继承接口 */
+interface Shape {
+    color: string
+}
+interface PenStrock {
+    penWidth: number
+}
+interface Square extends Shape, PenStrock {
+    sideLength: number
+}
+let square = {} as Square
+square.color = '#909090'
+square.sideLength = 20
+square.penWidth = 100
