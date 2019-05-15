@@ -68,3 +68,43 @@ mySearch = function(src, sub) { // 只要传入参数类型正确，返回是boo
     let result = src.search(sub)
     return result > -1
 }
+
+
+
+
+/* 可索引类型 */
+interface StringArray { // 当用number去索引这个接口的时候它会返回一个string类型的值 也就是数字签名 ts中有数字索引和字符串索引两种类型 这两种类型可以同时使用，但是数字索引必须为字符串索引的子类型
+    [index: number]: string
+}
+let myArray: StringArray
+myArray = ['Bob', 'Fred']
+let myStr: string = myArray[1]
+
+
+
+class Animal {
+    name: string
+}
+class Dog extends Animal {
+    breed: string
+}
+interface NotOkay {
+    // [x: number]: Animal 这样是不行的 数字类型是string的子类型
+    // [x: string]: Dog
+
+    [x: string]: Animal
+    [x: number]: Dog
+}
+
+interface NumberDictionaty {
+    [index: string]: number
+    length: number
+
+    // name: string 这样不行
+}
+
+interface ReadonlyStringArray {
+    readonly [index: number]: string
+}
+let myArray1: ReadonlyStringArray = ['Alice', 'Jane']
+// myArray1[2] = ['kangkang'] 这样不行
