@@ -18,6 +18,9 @@ interface Square {
 interface SquareConfig {
     color?: string
     width?: number
+
+    /* 额外属性检查 */
+    [propsName: string]: any // 表示当引用SquareConfig时可以除了color或者width之外的属性
 }
 function createSquare(config: SquareConfig): Square {
     let newSquare = { color: '#ffffff', area: 100 }
@@ -29,7 +32,7 @@ function createSquare(config: SquareConfig): Square {
     }
     return newSquare
 }
-createSquare({ color: '#000000' })
+createSquare({ color: '#000000', border: '3px' })
 
 
 /* 只读属性 */
