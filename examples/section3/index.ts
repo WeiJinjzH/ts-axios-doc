@@ -108,3 +108,52 @@ interface ReadonlyStringArray {
 }
 let myArray1: ReadonlyStringArray = ['Alice', 'Jane']
 // myArray1[2] = ['kangkang'] 这样不行
+
+
+
+
+
+/* 类类型接口 */
+interface ClockInterface {
+    currentTime: Date
+    setTimeout(d: Date)
+}
+class Clock implements ClockInterface {
+    currentTime: Date
+    constructor(h: string, m: string) {
+
+    }
+    setTimeout(d: Date) {
+        this.currentTime = d
+    }
+}
+
+
+
+interface ClockInterface1 { // 实例部分的接口类型
+    tick()
+}
+interface ClockConstrutor { // 构造器部分的接口类型
+    new(hour: number, minute: number): ClockInterface1
+}
+function createClock(ctor: ClockConstrutor, hour: number, minute: number): ClockInterface1 {
+    return new ctor(hour, minute)
+}
+class DigitalClock implements ClockInterface1 {
+    constructor(h: number, m: number) {
+
+    }
+    tick() {
+        console.log('deep deep')
+    }
+}
+class AnalogClock implements ClockInterface1 { // 类有两种接口类型
+    constructor(h: number, m: number) {
+
+    }
+    tick() {
+        console.log('tick toc')
+    }
+}
+let digital = createClock(DigitalClock, 12, 1) // 由于第一个参数是ClockConstrutor的类型，因此它会检测我们的DigitalClock满不满足
+let analog = createClock(AnalogClock, 24, 17)
