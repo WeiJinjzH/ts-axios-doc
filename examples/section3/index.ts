@@ -51,3 +51,20 @@ let ro: ReadonlyArray<number> = o1 // 此时就不能对ro进行修改
 // o1 = ro
 o1 = ro as number[] // 此时用类型断言是不会报错的
 // 只读属性和const  如果是变量的话用const 如果是属性的话用只读属性
+
+
+
+
+/* 函数类型 */
+interface SearchFunc {
+    (source: string, subString: string): boolean
+}
+let mySearch: SearchFunc
+mySearch = function(src: string, sub: string): boolean {
+    let result = src.search(sub)
+    return result > -1
+}
+mySearch = function(src, sub) { // 只要传入参数类型正确，返回是boolean类型就OK
+    let result = src.search(sub)
+    return result > -1
+}
