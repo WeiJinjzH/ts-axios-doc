@@ -176,3 +176,28 @@ let square = {} as Square
 square.color = '#909090'
 square.sideLength = 20
 square.penWidth = 100
+
+
+
+
+
+/* 混合类型 */
+interface Counter {
+    (start: number): string
+    interval: number
+    reset(): void
+}
+function getCunter(): Counter {
+    let counter = (function(start: number) {
+
+    }) as Counter
+    counter.interval = 123
+    counter.reset = function() {
+
+    }
+    return counter
+}
+let c1 = getCunter()
+c1(10)
+c1.interval = 5.5
+c1.reset()
