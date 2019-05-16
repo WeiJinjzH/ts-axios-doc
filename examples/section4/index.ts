@@ -14,7 +14,7 @@ greete.greet()
 
 
 
-
+/* 继承 */
 class Animal1 {
     move(distance: number = 0) {
         console.log(`Animal1 move ${distance}`)
@@ -63,3 +63,41 @@ let sam = new Snake('sammy')
 let tom: Animal2 = new Horse('tommy')
 tom.move(99)
 sam.move()
+
+
+
+
+/* 公共，私有与受保护的修饰符 */
+// 默认是公共的，也就是public
+class Animal3 {
+    private name: string // 此时在外部是访问不到name的
+    public constructor(name: string) {
+        this.name = name
+    }
+    public move(distance: number = 0) {
+        console.log(`${this.name} move ${distance}`)
+    }
+}
+let cat = new Animal3('cat')
+// cat.name = 'p'
+
+/* typescript其实是一个结构型的系统 当去比较两种类型时我们并不在乎它们是从哪来的 如果它们所有类型兼容的话我们认为它们是类型兼容的
+但是如果有私有/受保护成员的话情况就不同了 如果一个类型包含一个private成员，那么只有当另一个类型也包含private成员并且它们都是来自同一处声明的时候我们才会认为这两个是类型兼容的 对于受保护的成员也是适用这个规则
+*/
+class Rhino extends Animal3 {
+    constructor() {
+        super('Rhino')
+    }
+}
+
+class Employee {
+    private name: string
+    constructor(name: string) {
+        this.name = name
+    }
+}
+let animal3 = new Animal3('animal3')
+let employee = new Employee('goat')
+let rhino = new Rhino()
+animal3 = rhino
+animal3 = employee // 虽然Animal3和Employee类都有私有的private的name，但是它俩其实不是同一个name，来源不同 因此是不兼容的，但是Rhino是Animal3的子类，name的来源相同，所以兼容
