@@ -134,3 +134,27 @@ class Girl {
     }
 }
 // let girl = new Girl('lili') 会报错 因为Girl的构造函数被保护了
+
+
+
+
+
+/* readonly 外部只能访问不能修改 */
+class Boy {
+    readonly name: string
+    constructor(name: string) {
+        this.name = name
+    }
+}
+let jonh = new Boy('jonh')
+// jonh.name = 'kong'
+
+/* 参数属性 */
+class Person1 {
+    constructor(readonly name: string) { // 参数属性是指在构造函数参数中给一个访问限定符来声明
+
+    }
+}
+let jonh1 = new Boy('jonh')
+console.log(jonh1.name)
+// jonh1.name = 'lili'
