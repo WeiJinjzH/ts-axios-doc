@@ -100,4 +100,37 @@ let animal3 = new Animal3('animal3')
 let employee = new Employee('goat')
 let rhino = new Rhino()
 animal3 = rhino
-animal3 = employee // 虽然Animal3和Employee类都有私有的private的name，但是它俩其实不是同一个name，来源不同 因此是不兼容的，但是Rhino是Animal3的子类，name的来源相同，所以兼容
+// animal3 = employee // 虽然Animal3和Employee类都有私有的private的name，但是它俩其实不是同一个name，来源不同 因此是不兼容的，但是Rhino是Animal3的子类，name的来源相同，所以兼容
+
+
+
+
+class Person {
+    protected name: string
+    constructor(name: string) {
+        this.name = name
+    }
+}
+class Employee1 extends Person {
+    private department: string
+    constructor(name: string, department: string) {
+        super(name)
+        this.department = department
+    }
+    getElevatorPitch() {
+        return `Hello, my name is ${this.name} and I work in ${this.department}`
+    }
+}
+let howard = new Employee1('Howard', 'Sales')
+console.log(howard.getElevatorPitch())
+// console.log(howard.name) 会报错 因为name是受保护的成员
+
+
+/* 当一个类的构造函数被保护的时候，是不可以再被new也就是不可以再被实例化的 */
+class Girl {
+    name: string
+    protected constructor(name: string) {
+        this.name = name
+    }
+}
+// let girl = new Girl('lili') 会报错 因为Girl的构造函数被保护了
