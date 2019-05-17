@@ -158,3 +158,39 @@ class Person1 {
 let jonh1 = new Boy('jonh')
 console.log(jonh1.name)
 // jonh1.name = 'lili'
+
+
+
+
+
+
+
+/* 存取器 */
+class Employee2 {
+    fullName: string
+}
+let employee2 = new Employee2()
+employee2.fullName = 'Bob Smith'
+if (employee2.fullName) {
+    console.log(employee2.fullName)
+}
+
+const passcode = 'secret1 passcode'
+class Employee3 {
+    private _fullname: string
+    get fullName(): string {
+        return this._fullname
+    }
+    set fullName(newName: string) {
+        if (passcode && newName === 'secret passcode') {
+            this._fullname = newName
+        } else {
+            console.log('Error: Unauthorized update of employee!')
+        }
+    }
+}
+let employee3 = new Employee3()
+employee3.fullName = 'Bob Smith'
+if (employee3.fullName) {
+    console.log(employee3.fullName)
+}
