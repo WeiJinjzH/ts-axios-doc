@@ -141,3 +141,67 @@ var Employee1 = /** @class */ (function (_super) {
 var howard = new Employee1('Howard', 'Sales');
 console.log(howard.getElevatorPitch());
 // console.log(howard.name) 会报错 因为name是受保护的成员
+/* 当一个类的构造函数被保护的时候，是不可以再被new也就是不可以再被实例化的 */
+var Girl = /** @class */ (function () {
+    function Girl(name) {
+        this.name = name;
+    }
+    return Girl;
+}());
+// let girl = new Girl('lili') 会报错 因为Girl的构造函数被保护了
+/* readonly 外部只能访问不能修改 */
+var Boy = /** @class */ (function () {
+    function Boy(name) {
+        this.name = name;
+    }
+    return Boy;
+}());
+var jonh = new Boy('jonh');
+// jonh.name = 'kong'
+/* 参数属性 */
+var Person1 = /** @class */ (function () {
+    function Person1(name) {
+        this.name = name;
+    }
+    return Person1;
+}());
+var jonh1 = new Boy('jonh');
+console.log(jonh1.name);
+// jonh1.name = 'lili'
+/* 存取器 */
+var Employee2 = /** @class */ (function () {
+    function Employee2() {
+    }
+    return Employee2;
+}());
+var employee2 = new Employee2();
+employee2.fullName = 'Bob Smith';
+if (employee2.fullName) {
+    console.log(employee2.fullName);
+}
+var passcode = 'secret1 passcode';
+var Employee3 = /** @class */ (function () {
+    function Employee3() {
+    }
+    Object.defineProperty(Employee3.prototype, "fullName", {
+        get: function () {
+            return this._fullname;
+        },
+        set: function (newName) {
+            if (passcode && newName === 'secret passcode') {
+                this._fullname = newName;
+            }
+            else {
+                console.log('Error: Unauthorized update of employee!');
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Employee3;
+}());
+var employee3 = new Employee3();
+employee3.fullName = 'Bob Smith';
+if (employee3.fullName) {
+    console.log(employee3.fullName);
+}
