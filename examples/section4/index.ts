@@ -218,3 +218,48 @@ let grid1 = new Grid(1.0)
 let grid2 = new Grid(5.0)
 console.log(grid1.calculateDistanceFromOrigin({ x: 3, y: 4 }))
 console.log(grid2.calculateDistanceFromOrigin({ x: 3, y: 4 }))
+
+
+
+
+
+
+/* 抽象类 */
+abstract class Animal4 {
+    abstract mackSound(): void // 抽象方法是不能直接实现的，要在它的派生类里面实现
+    protected abstract add(): void
+    constructor(parameters) {
+        
+    }
+    move(): void {
+        console.log('roaming the earth ...!')
+    }
+}
+
+
+abstract class Department {
+    name: string
+    constructor(name: string) {
+        this.name = name
+    }
+    printName(): void {
+        console.log(`Department name ${this.name}`)
+    }
+    abstract printMeeting(): void
+}
+class AccountingDepartment extends Department {
+    constructor() {
+        super('Accounting ad Auditing')
+    }
+    printMeeting(): void {
+        console.log('The Accounting Department meets each Monday at 10am')
+    }
+    gennerateReports(): void {
+        console.log('Gennerating Accounting reports...')
+    }
+}
+// let department: Department = new Department() // 不可以直接去实例化一个抽象类
+let department: Department = new AccountingDepartment()
+department.printName()
+department.printMeeting()
+// department.gennerateReports() // 这样是不行的 因为department已经定义了Department这样的类型 但是Department中是没有gennerateReports这样的方法的 除非定义的类型是AccountingDepartment类型
