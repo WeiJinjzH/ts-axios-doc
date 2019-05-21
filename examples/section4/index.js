@@ -210,8 +210,8 @@ var Grid = /** @class */ (function () {
     function Grid(scale) {
         this.scale = scale;
     }
-    Grid.prototype.claculateDistanceFromOrigin = function (point) {
-        var xDist = point.x - Grid.origin.x;
+    Grid.prototype.calculateDistanceFromOrigin = function (point) {
+        var xDist = point.x - Grid.origin.x; // 定义静态属性之后就可以通过类的本身去访问
         var yDist = point.y - Grid.origin.y;
         return Math.sqrt(xDist * xDist + yDist * yDist) * this.scale;
     };
@@ -220,5 +220,41 @@ var Grid = /** @class */ (function () {
 }());
 var grid1 = new Grid(1.0);
 var grid2 = new Grid(5.0);
-console.log(grid1.claculateDistanceFromOrigin({ x: 3, y: 4 }));
-console.log(grid2.claculateDistanceFromOrigin({ x: 3, y: 4 }));
+console.log(grid1.calculateDistanceFromOrigin({ x: 3, y: 4 }));
+console.log(grid2.calculateDistanceFromOrigin({ x: 3, y: 4 }));
+/* 抽象类 */
+var Animal4 = /** @class */ (function () {
+    function Animal4(parameters) {
+    }
+    Animal4.prototype.move = function () {
+        console.log('roaming the earth ...!');
+    };
+    return Animal4;
+}());
+var Department = /** @class */ (function () {
+    function Department(name) {
+        this.name = name;
+    }
+    Department.prototype.printName = function () {
+        console.log("Department name " + this.name);
+    };
+    return Department;
+}());
+var AccountingDepartment = /** @class */ (function (_super) {
+    __extends(AccountingDepartment, _super);
+    function AccountingDepartment() {
+        return _super.call(this, 'Accounting ad Auditing') || this;
+    }
+    AccountingDepartment.prototype.printMeeting = function () {
+        console.log('The Accounting Department meets each Monday at 10am');
+    };
+    AccountingDepartment.prototype.gennerateReports = function () {
+        console.log('Gennerating Accounting reports...');
+    };
+    return AccountingDepartment;
+}(Department));
+// let department: Department = new Department() // 不可以直接去实例化一个抽象类
+var department = new AccountingDepartment();
+department.printName();
+department.printMeeting();
+// department.gennerateReports() // 这样是不行的 因为department已经定义了Department这样的类型 但是Department中是没有gennerateReports这样的方法的 除非定义的类型是AccountingDepartment类型
