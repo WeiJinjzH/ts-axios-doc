@@ -258,3 +258,25 @@ var department = new AccountingDepartment();
 department.printName();
 department.printMeeting();
 // department.gennerateReports() // 这样是不行的 因为department已经定义了Department这样的类型 但是Department中是没有gennerateReports这样的方法的 除非定义的类型是AccountingDepartment类型
+/* 类的高级用法 */
+var Greeter1 = /** @class */ (function () {
+    function Greeter1(message) {
+        this.greeting = message;
+    }
+    Greeter1.prototype.greet = function () {
+        if (this.greeting) {
+            return "Hello, " + this.greeting;
+        }
+        else {
+            return Greeter1.standerGreeting;
+        }
+    };
+    Greeter1.standerGreeting = 'Hello there';
+    return Greeter1;
+}());
+var greeter1 = new Greeter1();
+console.log(greeter1.greet());
+var greeterMaker = Greeter1;
+greeterMaker.standerGreeting = 'Hay there';
+var greeter2 = new greeterMaker();
+console.log(greeter2.greet());
