@@ -263,3 +263,43 @@ let department: Department = new AccountingDepartment()
 department.printName()
 department.printMeeting()
 // department.gennerateReports() // 这样是不行的 因为department已经定义了Department这样的类型 但是Department中是没有gennerateReports这样的方法的 除非定义的类型是AccountingDepartment类型
+
+
+
+
+
+
+/* 类的高级用法 */
+class Greeter1 {
+    static standerGreeting = 'Hello there'
+    greeting: string
+    constructor(message?: string) {
+        this.greeting = message
+    }
+    greet() {
+        if (this.greeting) {
+            return `Hello, ${this.greeting}`
+        } else {
+            return Greeter1.standerGreeting
+        }
+    }
+}
+let greeter1: Greeter1 = new Greeter1()
+console.log(greeter1.greet())
+let greeterMaker: typeof Greeter1 = Greeter1
+greeterMaker.standerGreeting = 'Hay there'
+let greeter2: Greeter1 = new greeterMaker()
+console.log(greeter2.greet())
+
+
+
+
+/* 类还可以用作接口 */
+class Point {
+    x1: number
+    y1: number
+}
+interface Point3d extends Point {
+    z: number
+}
+let point3d:Point3d = { x1: 9, y1: 10, z: 11, x: 0, y: 0 }
