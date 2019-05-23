@@ -102,3 +102,29 @@ let deck: Deck = {
 let cardPicker = deck.createCardPicker()
 let pickedCard = cardPicker()
 console.log(`card: ${pickedCard.card} of ${pickedCard.suit}`)
+
+
+
+
+interface UIElement {
+    addClickListener(onClick: (this: void, e: Event) => void): void
+}
+class Handler {
+    type: string
+    // onClickBad(this: void, e: Event) {
+    //     // this.type = e.type
+    //     console.log(e)
+    // }
+    // 此时还是想要用this的话就将函数改为尖箭头函数
+    onClickBad = (e: Event) => {
+        this.type = e.type
+        console.log(e)
+    }
+}
+let h1 = new Handler()
+let uiElement: UIElement = {
+    addClickListener() {
+
+    }
+}
+uiElement.addClickListener(h1.onClickBad) // 由于UIElement的this是void，但是h1的Handler的this是Handler 此时把Handler的this类型改为void的话还是会报错 因为this的类型是void的话就不能再调用this了
