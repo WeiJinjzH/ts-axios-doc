@@ -57,7 +57,6 @@ function buildName3(firstName) {
 }
 var result6 = buildName3("Bob", 'Adams', 'Sr.');
 var buildNameFn = buildName3;
-/* this */
 var deck = {
     suits: ['hearts', 'spades', 'clubs', 'diamonds'],
     cards: Array(52),
@@ -67,12 +66,54 @@ var deck = {
             var pickedCard = Math.floor(Math.random() * 52); // 随机从52张牌中抽取一张
             var pickedSuit = Math.floor(pickedCard / 13);
             return {
-                suits: _this.suits[pickedSuit],
-                cards: pickedCard % 13
+                suit: _this.suits[pickedSuit],
+                card: pickedCard % 13
             };
         };
     }
 };
 var cardPicker = deck.createCardPicker();
 var pickedCard = cardPicker();
-console.log("card: " + pickedCard.cards + " of " + pickedCard.suits);
+console.log("card: " + pickedCard.card + " of " + pickedCard.suit);
+var Handler = /** @class */ (function () {
+    function Handler() {
+        var _this = this;
+        // onClickBad(this: void, e: Event) {
+        //     // this.type = e.type
+        //     console.log(e)
+        // }
+        // 此时还是想要用this的话就将函数改为尖箭头函数
+        this.onClickBad = function (e) {
+            _this.type = e.type;
+            console.log(e);
+        };
+    }
+    return Handler;
+}());
+var h1 = new Handler();
+var uiElement = {
+    addClickListener: function () {
+    }
+};
+uiElement.addClickListener(h1.onClickBad); // 由于UIElement的this是void，但是h1的Handler的this是Handler 此时把Handler的this类型改为void的话还是会报错 因为this的类型是void的话就不能再调用this了
+/* 函数重载 */
+var suits = ['hearts', 'spades', 'clubs', 'diamonds'];
+function pickCard(x) {
+    if (Array.isArray(x)) {
+        var pickedCard_1 = Math.floor(Math.random() * x.length);
+        return pickedCard_1;
+    }
+    else if (typeof x === 'number') {
+        var pickedSuit = Math.floor(x / 13);
+        return { suit: suits[pickedSuit], card: x % 13 };
+    }
+}
+var myDeck = [
+    { suit: 'spades', card: 3 },
+    { suit: 'clubs', card: 10 },
+    { suit: 'hearts', card: 4 },
+];
+var pickedCard1 = myDeck[pickCard(myDeck)];
+console.log("card: " + pickedCard1.card + " of " + pickedCard1.suit);
+var pickedCard2 = pickCard(15);
+console.log("card: " + pickedCard2.card + " of " + pickedCard2.suit);
