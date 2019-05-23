@@ -128,3 +128,37 @@ let uiElement: UIElement = {
     }
 }
 uiElement.addClickListener(h1.onClickBad) // 由于UIElement的this是void，但是h1的Handler的this是Handler 此时把Handler的this类型改为void的话还是会报错 因为this的类型是void的话就不能再调用this了
+
+
+
+
+
+
+
+
+/* 函数重载 */
+let suits = ['hearts', 'spades', 'clubs', 'diamonds']
+
+// 重载 最精确的定义放在前面
+function pickCard(x: { suit: string, card: number }[]): number
+function pickCard(x: number): { suit: string, card: number }
+
+
+function pickCard(x): any {
+    if (Array.isArray(x)) {
+        let pickedCard = Math.floor(Math.random() * x.length)
+        return pickedCard
+    } else if (typeof x === 'number') {
+        let pickedSuit = Math.floor(x / 13)
+        return { suit: suits[pickedSuit], card: x % 13 }
+    }
+}
+let myDeck = [
+    { suit: 'spades', card: 3 },
+    { suit: 'clubs', card: 10 },
+    { suit: 'hearts', card: 4 },
+]
+let pickedCard1 = myDeck[pickCard(myDeck)]
+console.log(`card: ${pickedCard1.card} of ${pickedCard1.suit}`)
+let pickedCard2 = pickCard(15)
+console.log(`card: ${pickedCard2.card} of ${pickedCard2.suit}`)
