@@ -34,3 +34,27 @@ interface GenericTdentityFn<T> { // 泛型接口
     (arg: T): T
 }
 let myIdentity2: GenericTdentityFn<number> = identity
+
+
+
+
+
+
+
+
+/* 泛型类 */
+class GenericNumber<T> {
+    zeroValue: T
+    add: (x: T, y: T) => T
+}
+let myGenericNumber = new GenericNumber<number>()
+myGenericNumber.zeroValue = 0
+myGenericNumber.add = function(x, y) {
+    return x + y
+}
+let myGenericString = new GenericNumber<string>()
+myGenericString.zeroValue = 'Hello '
+myGenericString.add = function(x, y) {
+    return x + y
+}
+console.log(myGenericString.add(myGenericString.zeroValue, 'Typescript'))
