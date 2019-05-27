@@ -17,3 +17,20 @@ function loggingIdentity<T>(arg: T[]): T[] {
     console.log(arg.length)
     return arg
 }
+
+
+
+
+
+/* 泛型类型 */
+let myIdentity: <T>(arg: T) => T = identity
+
+
+/* 泛型字面量 */
+let myIdentity1: { <T>(arg: T): T } = identity
+
+
+interface GenericTdentityFn<T> { // 泛型接口
+    (arg: T): T
+}
+let myIdentity2: GenericTdentityFn<number> = identity
