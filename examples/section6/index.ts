@@ -58,3 +58,24 @@ myGenericString.add = function(x, y) {
     return x + y
 }
 console.log(myGenericString.add(myGenericString.zeroValue, 'Typescript'))
+
+
+
+
+
+
+
+
+
+
+/* 泛型约束 */
+interface Lengthwise {
+    length: number
+}
+
+
+function loggingIdentity1<T extends Lengthwise>(arg: T): T {
+    console.log(arg.length) // 前面的解决方案是让参数变成一个数组
+    return arg
+}
+loggingIdentity1({ length: 6 })
