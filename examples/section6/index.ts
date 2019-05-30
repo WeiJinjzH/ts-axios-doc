@@ -79,3 +79,44 @@ function loggingIdentity1<T extends Lengthwise>(arg: T): T {
     return arg
 }
 loggingIdentity1({ length: 6 })
+
+
+
+
+function getProperty<T, K extends keyof T>(obj: T, key: K) {
+    return obj[key]
+}
+let x = { a: 1, b: 2, c: 3, d: 4 }
+getProperty(x, 'a')
+// getProperty(x, 'm') 这样就不行，因为K继承了T，而传入的x中没有m
+
+
+
+
+// 工厂函数
+function create<T>(c: { new(): T }): T {
+    return new c()
+}
+
+
+
+class BeeKeeper {
+    hasMask: boolean
+}
+class LionKeeper {
+    nametag: string
+}
+class Animal {
+    numLength: number
+}
+class Bee extends Animal {
+    keeper: BeeKeeper
+}
+class Lion extends Animal {
+    keeper: LionKeeper
+}
+function createInstance<T>(c: new() => T): T {
+    return new c()
+}
+createInstance(Lion).keeper.nametag
+createInstance(Bee).keeper.hasMask
