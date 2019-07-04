@@ -66,5 +66,25 @@ function getSmallPet(): Fish | Bird {
     return 
 }
 let pat = getSmallPet()
-pat.layEggs()
+// pat.layEggs()
 // pat.swim()  // 这样是访问不到的
+
+
+
+/* 类型保护 接着上面的 */
+if ((pat as Fish).swim) {
+    (pat as Fish).swim()
+} else if ((pat as Bird).fly) {
+    (pat as Bird).fly()
+}
+
+function isFish(pat: Fish | Bird): pat is Fish { // 类型谓词
+    return (pat as Fish) !== undefined
+}
+
+// 此时就不用像上面一样判断了
+if (isFish(pat)) {
+    pat.swim()
+} else {
+    pat.fly()
+}
