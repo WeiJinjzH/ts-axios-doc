@@ -88,3 +88,22 @@ if (isFish(pat)) {
 } else {
     pat.fly()
 }
+
+// 用类型谓词来重新写上面的padLeft方法
+function isNumber(x: any): x is number {
+    return typeof x === 'number'
+}
+function isString(x: any): x is string {
+    return typeof x === 'string'
+}
+function padLeft1(value: string, padding: string | number) {
+    // if (isNumber(padding)) {
+    if (typeof padding === 'number') { // 因为本身ts有类型保护
+        return Array(padding + 1).join(' ') + value
+    }
+    // if (isString(padding)) {
+    if (typeof padding === 'string') {
+        return padding + value
+    }
+    throw new Error(`Expected string or number got ${padding}`)
+}
