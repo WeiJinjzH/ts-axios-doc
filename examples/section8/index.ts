@@ -107,3 +107,33 @@ function padLeft1(value: string, padding: string | number) {
     }
     throw new Error(`Expected string or number got ${padding}`)
 }
+
+
+
+/* instance of类型保护 */
+class Bird {
+    fly() {
+        console.log('Bird fly')
+    }
+    layEggs() {
+        console.log('Bird lay eggs')
+    }
+}
+class Fish {
+    swim() {
+        console.log('Fish swim')
+    }
+    layEggs() {
+        console.log('Fish lay eggs')
+    }
+}
+function getRandom(): Bird | Fish {
+    return Math.random() > 0.5 ? new Bird() : new Fish()
+}
+let pet = getRandom()
+if (pet instanceof Bird) {
+    pet.fly()
+}
+if (pet instanceof Fish) {
+    pet.swim()
+}
