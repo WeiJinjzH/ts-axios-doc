@@ -137,3 +137,56 @@ if (pet instanceof Bird) {
 if (pet instanceof Fish) {
     pet.swim()
 }
+
+
+
+
+
+/* 可以为null的类型 */
+let s = 'foo'
+s = null
+let sn: string | null = 'bar'
+sn = null
+sn = undefined
+
+function f(x: number, y?: number) { // 这里的y其实是number或者undefined类型
+    return x + (y || 0)
+}
+f(1, 2)
+f(1)
+f(1, undefined)
+f(1, null) // 编译会报错tsc index.ts --strictNullChecks  
+
+
+// 可选属性也会有相同的处理
+
+class C {
+    a: number
+    b?: number
+}
+let c = new C()
+c.a = 12
+c.a = undefined // 报错
+c.b = 23
+c.b = undefined
+c.b = null // 报错
+
+
+
+
+function fo(sn: string | null): string { // 要求通过类型保护把null去掉
+    // if (sn === null) {
+    //     return 'default'
+    // } else {
+    //     return sn
+    // }
+    return sn! || 'default'
+}
+function broken(name: string | null): string {
+    function postFix(epithet: string) {
+        return `${name!.charAt(0)}. the ${epithet}` // 由于是嵌套函数，因此编译器无法知道name是不是为null 此时只要在name后面加!就好了,就是一种类型断言，我们明确知道它不为null，告诉编译器就好了
+    }
+    name = name || 'Bob'
+    return postFix(name)
+}
+broken(null) // 此时传入null,在嵌套函数中也不会报错
