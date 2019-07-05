@@ -190,3 +190,25 @@ function broken(name: string | null): string {
     return postFix(name)
 }
 broken(null) // 此时传入null,在嵌套函数中也不会报错
+
+
+
+
+
+
+
+/* 字符串字面量类型 */
+type Easing = 'ease-in' | 'ease-out' | 'ease-in-out'
+class UIElement {
+    animate(dx: number, dy: number, easing: Easing) {
+        if (easing === 'ease-in') {
+            // ...
+        } else if (easing === 'ease-out') {
+        } else if (easing === 'ease-in-out') {
+        } else {
+        }
+    }
+}
+let button = new UIElement()
+button.animate(0, 0, 'ease-in')
+button.animate(0, 0, 'uneasy')
