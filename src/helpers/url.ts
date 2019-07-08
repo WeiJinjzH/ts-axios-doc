@@ -34,7 +34,7 @@ export function buildURL(url: string, params?: any): string {
       if (isDate(val)) {
         val = val.toISOString()
       } else if (isObject(val)) {
-        val = val.stringify(val)
+        val = JSON.stringify(val)
       }
       parts.push(`${encode(key)}=${encode(val)}`)
     })
